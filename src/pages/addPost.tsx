@@ -58,9 +58,10 @@ export default function AddPost() {
           name={'title'}
           type={'text'}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.title}
         />
-        {formik.errors.title ? <div>{formik.errors.title}</div> : null}
+        {formik.errors.title && formik.touched.title ? <div>{formik.errors.title}</div> : null}
 
         <label htmlFor={'content'}>Content</label>
         <input
@@ -68,9 +69,10 @@ export default function AddPost() {
           name={'content'}
           type={'text'}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           value={formik.values.content}
         />
-        {formik.errors.content ? <div>{formik.errors.content}</div> : null}
+        {formik.errors.content && formik.touched.content ? <div>{formik.errors.content}</div> : null}
 
         <button type={'submit'}>Submit</button>
       </form>
