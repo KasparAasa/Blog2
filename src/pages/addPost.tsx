@@ -3,6 +3,20 @@ import {useFormik} from 'formik'
 import {useState} from 'react'
 import {BlogPostInterface} from '@/interfaces/BlogPost'
 
+const validate = (values: any) => { // function validate(values: any) {}
+  const errors: any = {}
+  if (!values.title) {
+    errors.title = 'Required'
+  } else if (values.title.length > 20) {
+    errors.title = 'Must be 20 characters or less'
+  }
+
+  if (!values.content) {
+    errors.content = 'Required'
+  }
+}
+
+
 export default function AddPost() {
 
   const formik = useFormik({
@@ -45,6 +59,7 @@ export default function AddPost() {
           onChange={formik.handleChange}
           value={formik.values.title}
         />
+        {formik.errors.title ? <div>{formik.errors.title}</div> : null}
 
         <label htmlFor={'content'}>Content</label>
         <input
@@ -54,6 +69,7 @@ export default function AddPost() {
           onChange={formik.handleChange}
           value={formik.values.content}
         />
+        {formik.errors.content ? <div>{formik.errors.content}</div> : null}
 
         <button type={'submit'}>Submit</button>
       </form>
