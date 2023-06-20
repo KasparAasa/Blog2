@@ -2,19 +2,20 @@ import {Layout} from '@/components/Layout'
 import {useFormik} from 'formik'
 import {useState} from 'react'
 import {BlogPostInterface} from '@/interfaces/BlogPost'
+import * as Yup from 'yup'
 
-const validate = (values: any) => { // function validate(values: any) {}
-  const errors: any = {}
-  if (!values.title) {
-    errors.title = 'Required'
-  } else if (values.title.length > 20) {
-    errors.title = 'Must be 20 characters or less'
-  }
-
-  if (!values.content) {
-    errors.content = 'Required'
-  }
-}
+// const validate = (values: any) => { // function validate(values: any) {}
+//   const errors: any = {}
+//   if (!values.title) {
+//     errors.title = 'Required'
+//   } else if (values.title.length > 20) {
+//     errors.title = 'Must be 20 characters or less'
+//   }
+//
+//   if (!values.content) {
+//     errors.content = 'Required'
+//   }
+// }
 
 
 export default function AddPost() {
@@ -27,7 +28,13 @@ export default function AddPost() {
       slug: '',
       date: '',
     },
-    validate,
+    validationSchema: Yup.object({
+      title: Yup.string()
+        .max(20, 'Must be 20 characters or less')
+        .required('Required'),
+      content: Yup.string()
+        .required('Required'),
+    }),
     onSubmit: values => {
       setBlogPosts({
         title: values.title,
