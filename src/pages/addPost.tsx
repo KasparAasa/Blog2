@@ -27,6 +27,7 @@ export default function AddPost() {
       slug: '',
       date: '',
     },
+    validate,
     onSubmit: values => {
       setBlogPosts({
         title: values.title,
