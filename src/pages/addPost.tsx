@@ -60,25 +60,11 @@ export default function AddPost() {
       <form onSubmit={formik.handleSubmit}>
 
         <label htmlFor={'title'}>Title</label>
-        <input
-          id={'title'}
-          name={'title'}
-          type={'text'}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.title}
-        />
+        <input id={'title'} type={'text'} {...formik.getFieldProps('title')} />
         {formik.errors.title && formik.touched.title ? <div>{formik.errors.title}</div> : null}
 
         <label htmlFor={'content'}>Content</label>
-        <input
-          id={'content'}
-          name={'content'}
-          type={'text'}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          value={formik.values.content}
-        />
+        <input id={'content'} type={'text'} {...formik.getFieldProps('content')} />
         {formik.errors.content && formik.touched.content ? <div>{formik.errors.content}</div> : null}
 
         <button type={'submit'}>Submit</button>
