@@ -3,6 +3,7 @@ import {useFormik} from 'formik'
 import {useState} from 'react'
 import {BlogPostInterface} from '@/interfaces/BlogPost'
 import * as Yup from 'yup'
+import {Formik, Field, Form, ErrorMessage} from 'formik'
 
 // const validate = (values: any) => { // function validate(values: any) {}
 //   const errors: any = {}
@@ -57,18 +58,44 @@ export default function AddPost() {
 
   return (
     <Layout>
-      <form onSubmit={formik.handleSubmit}>
+      <Formik
+        initialValues={{
+          title: '',
+          content: '',
+          id: '',
+          slug: '',
+          date: '',
+        }}
+        validationSchema={Yup.object({
+          title: Yup.string()
+            .max(20, 'Must be 20 characters or less')
+            .required('Required'),
+          content: Yup.string()
+            .required('Required'),
+        })}
+        onSubmit={(values) => {
+          setBlogPosts({
+            title: values.title,
+            content: values.content,
+            id: '',
+            slug: '',
+            date: '',
+          })
+        }}
+      >
 
-        <label htmlFor={'title'}>Title</label>
-        <input id={'title'} type={'text'} {...formik.getFieldProps('title')} />
-        {formik.errors.title && formik.touched.title ? <div>{formik.errors.title}</div> : null}
+          <Form>
+            <label htmlFor={'title'}>Title</label>
+            <Field name={'title'} type={'text'}/>
+            <ErrorMessage name={'title'}/>
 
-        <label htmlFor={'content'}>Content</label>
-        <input id={'content'} type={'text'} {...formik.getFieldProps('content')} />
-        {formik.errors.content && formik.touched.content ? <div>{formik.errors.content}</div> : null}
+            <label htmlFor={'content'}>Content</label>
+            <Field name={'content'} type={'text'}/>
+            <ErrorMessage name={'content'}/>
 
-        <button type={'submit'}>Submit</button>
-      </form>
+            <button type={'submit'}>Submit</button>
+          </Form>
+      </Formik>
     </Layout>
   )
 }
