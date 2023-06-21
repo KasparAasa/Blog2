@@ -3,7 +3,8 @@ import {useState} from 'react'
 import {BlogPostInterface} from '@/interfaces/BlogPost'
 import * as Yup from 'yup'
 import {Formik, Field, Form, ErrorMessage} from 'formik'
-import {kebabCase} from "tiny-case";
+import {kebabCase} from "tiny-case"
+import { v4 as uuidv4 } from 'uuid'
 
 // const validate = (values: any) => { // function validate(values: any) {}
 //   const errors: any = {}
@@ -47,7 +48,7 @@ export default function AddPost() {
               {
                 title: values.title,
                 content: values.content,
-                id: '',
+                id: uuidv4(),
                 slug: kebabCase(values.title),
                 date:'',
               }
