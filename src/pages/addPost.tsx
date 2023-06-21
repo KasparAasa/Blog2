@@ -1,5 +1,4 @@
 import {Layout} from '@/components/Layout'
-import {useFormik} from 'formik'
 import {useState} from 'react'
 import {BlogPostInterface} from '@/interfaces/BlogPost'
 import * as Yup from 'yup'
@@ -18,7 +17,6 @@ import {Formik, Field, Form, ErrorMessage} from 'formik'
 //   }
 // }
 
-
 export default function AddPost() {
 
   const [blogPosts, setBlogPosts] =
@@ -32,6 +30,7 @@ export default function AddPost() {
 
   return (
     <Layout>
+      <div className={''}>
       <Formik
         initialValues={{
           title: '',
@@ -43,9 +42,9 @@ export default function AddPost() {
         validationSchema={Yup.object({
           title: Yup.string()
             .max(20, 'Must be 20 characters or less')
-            .required('Required'),
+            .required(`Title is required`),
           content: Yup.string()
-            .required('Required'),
+            .required('Content is required'),
         })}
         onSubmit={(values) => {
           setBlogPosts({
@@ -57,19 +56,25 @@ export default function AddPost() {
           })
         }}
       >
-
-          <Form>
+          <Form className={'flex flex-col gap-3'}>
             <label htmlFor={'title'}>Title</label>
-            <Field name={'title'} type={'text'}/>
+            <Field
+              className={'border-1 rounded shadow border-slate-400 mb-5'}
+              name={'title'}
+              type={'text'}/>
             <ErrorMessage name={'title'}/>
 
             <label htmlFor={'content'}>Content</label>
-            <Field name={'content'} type={'text'}/>
+            <Field
+              className={'border-1 border-slate-400 rounded shadow h-28'}
+              name={'content'}
+              as={'textarea'}/>
             <ErrorMessage name={'content'}/>
 
             <button type={'submit'}>Submit</button>
           </Form>
       </Formik>
+      </div>
     </Layout>
   )
 }
