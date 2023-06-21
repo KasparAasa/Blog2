@@ -21,32 +21,6 @@ import {Formik, Field, Form, ErrorMessage} from 'formik'
 
 export default function AddPost() {
 
-  const formik = useFormik({
-    initialValues: {
-      title: '',
-      content: '',
-      id: '',
-      slug: '',
-      date: '',
-    },
-    validationSchema: Yup.object({
-      title: Yup.string()
-        .max(20, 'Must be 20 characters or less')
-        .required('Required'),
-      content: Yup.string()
-        .required('Required'),
-    }),
-    onSubmit: values => {
-      setBlogPosts({
-        title: values.title,
-        content: values.content,
-        id: '',
-        slug: '',
-        date: '',
-      })
-    },
-  })
-
   const [blogPosts, setBlogPosts] =
     useState<BlogPostInterface>({
       title: '',
