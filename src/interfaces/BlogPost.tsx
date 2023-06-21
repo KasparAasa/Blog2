@@ -3,5 +3,5 @@ export interface BlogPostInterface {
   content: string
   id: string
   slug: string
-  date: string
+  date: Date
 }

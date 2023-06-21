@@ -50,7 +50,7 @@ export default function AddPost() {
                 content: values.content,
                 id: uuidv4(),
                 slug: kebabCase(values.title),
-                date:'',
+                date: new Date(),
               }
             ]
             setBlogPosts(newList)
@@ -80,6 +80,7 @@ export default function AddPost() {
           <div>
             <div>{post.title}</div>
             <div>{post.content}</div>
+            <div>{post.date.toLocaleDateString('en-GB')}</div>
           </div>
         )}
       </div>
