@@ -1,12 +1,18 @@
 import {Layout} from '@/components/Layout'
 import React, {useState} from 'react'
+import {BlogBox} from '@/components/BlogBox'
+import {useStore} from '@/stores/store'
+
 
 export default function Project() {
 
+  const {blogStore} = useStore()
 
   return (
     <Layout>
-      <h1 className={'text-6xl font-bold text-slate-900'}>Hello World</h1>
+      {blogStore.blogPosts?.map(blogPost =>
+        <BlogBox blogPost={blogPost} key={blogPost.id}/>,
+      )}
     </Layout>
   )
 }

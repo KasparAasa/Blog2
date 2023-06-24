@@ -1,27 +1,14 @@
 import {Layout} from '@/components/Layout'
-import {useState} from 'react'
-import {BlogPostInterface} from '@/interfaces/BlogPost'
 import * as Yup from 'yup'
 import {Formik, Field, Form, ErrorMessage} from 'formik'
-import {kebabCase} from "tiny-case"
-import { v4 as uuidv4 } from 'uuid'
-
-// const validate = (values: any) => { // function validate(values: any) {}
-//   const errors: any = {}
-//   if (!values.title) {
-//     errors.title = 'Required'
-//   } else if (values.title.length > 20) {
-//     errors.title = 'Must be 20 characters or less'
-//   }
-//
-//   if (!values.content) {
-//     errors.content = 'Required'
-//   }
-// }
+import {kebabCase} from 'tiny-case'
+import {v4 as uuidv4} from 'uuid'
+import {observer} from 'mobx-react'
+import {useStore} from '@/stores/store'
 
 
-export default function AddPost() {
-  const [blogPosts, setBlogPosts] = useState<BlogPostInterface[]>([])
+const AddPost = observer(() => {
+  const {blogStore} = useStore()
 
   return (
     <Layout>
@@ -43,18 +30,15 @@ export default function AddPost() {
           })}
           onSubmit={(values) => {
 
-            const newList = [
-              ...blogPosts,
-              {
-                title: values.title,
-                content: values.content,
-                id: uuidv4(),
-                slug: kebabCase(values.title),
-                date: new Date(),
-              }
-            ]
-            setBlogPosts(newList)
+            blogStore.addBlogPost({
+              title: values.title,
+              content: values.content,
+              id: uuidv4(),
+              slug: kebabCase(values.title),
+              date: new Date(),
+            })
           }}
+
         >
           <Form className={'flex flex-col gap-3'}>
             <label htmlFor={'title'}>Title</label>
@@ -75,15 +59,8 @@ export default function AddPost() {
           </Form>
         </Formik>
       </div>
-      <div>
-        {blogPosts.map(post =>
-          <div>
-            <div>{post.title}</div>
-            <div>{post.content}</div>
-            <div>{post.date.toLocaleDateString('en-GB')}</div>
-          </div>
-        )}
-      </div>
     </Layout>
   )
-}
+})
+
+export default AddPost
