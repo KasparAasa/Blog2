@@ -8,6 +8,7 @@ export const Layout: FC<PropsWithChildren> = ({children}) => {
         <div className={'max-w-screen-xl w-full flex gap-6 font-medium text-slate-700'}>
           <Link href={'/'}>Main Page</Link>
           <Link href={'addPost'}>Add Post</Link>
+          <Link href={'posts'}>Posts</Link>
         </div>
       </header>
       <div className={'flex justify-center p-6'}>
