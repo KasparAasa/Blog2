@@ -2,6 +2,7 @@ export interface UserInterface {
   blogName?: string
   name?: string
   email?: string
-  description?: string
+  personDescription?: string
+  blogDescription?: string
   picture?: string
 }
