@@ -3,7 +3,6 @@ import {observer} from 'mobx-react'
 
 interface BlogBoxProps {
   blogPost: BlogPostInterface
-
 }
 
 export const BlogBox: React.FC<BlogBoxProps> = observer((props) => {
